@@ -4,9 +4,9 @@ import math
 
 HOST = "irc.twitch.tv"
 PORT = 6667
-TOKEN = "oauth:fbjtch47fdxco4picpesndaz1nc9hh"
-NICKNAME = "lars_99"
-CHANNEL = "papaplatte"
+TOKEN = "oauth:..."  # you can get your token from https://twitchapps.com/tmi/
+NICKNAME = "..."
+CHANNEL = "..."
 
 
 start_time = time.time()
@@ -67,25 +67,6 @@ def getMessage(line):
 
 
 
-def time_convert(sec):
-
-    global time_video
-
-    mins = sec // 60
-    sec = sec % 60
-    hours = mins // 60
-    mins = mins % 60
-
-    print("Time Lapsed = {0}:{1}:{2}".format(int(hours),int(mins),math.floor(sec)))
-
-    time_video = "Film Zeit: {0}:{1}:{2}".format(int(hours),int(mins),math.floor(sec))
-
-
-
-
-
-
-
 s = openSocket()
 joinRoom(s)
 readbuffer = ""
@@ -137,10 +118,3 @@ while ja < 2:
 
 
 
-        if 'zeit?' in message or 'Zeit?' in message:
-            print('time')
-            end_time = time.time()
-            time_lapsed = end_time - start_time + 3630
-            time_convert(time_lapsed)
-            sendMessage(s, '@ ' + user + ' ' + time_video + ' plus minus paar sekunden')
-            break
