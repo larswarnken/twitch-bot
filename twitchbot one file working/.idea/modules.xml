@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/twitch-bot.iml" filepath="$PROJECT_DIR$/.idea/twitch-bot.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/twitchVot one file working.iml" filepath="$PROJECT_DIR$/.idea/twitchVot one file working.iml" />
     </modules>
   </component>
 </project>
