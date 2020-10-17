@@ -88,9 +88,6 @@ while ja < 2:
         user = getUser(line)
         message = getMessage(line)
         # print(user + ": " + message)
-        if "you suck" in message:
-            sendMessage(s, "no you suck")
-            break
         if "@lars_99 WeirdChamp" in message:
             sendMessage(s, "@" + user + " WeirdChamp")
             break
