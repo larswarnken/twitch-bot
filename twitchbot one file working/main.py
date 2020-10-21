@@ -1,5 +1,6 @@
 import socket
 import time
+import re
 
 HOST = "irc.twitch.tv"
 PORT = 6667
@@ -88,6 +89,8 @@ while run:
         user = getUser(line)
         message = getMessage(line)
         print(user + ": " + message)
+
+        # weirdchamp
         if "@{} WeirdChamp".format(NICKNAME) in message:
             sendMessage(s, "@" + user + " WeirdChamp")
             break
@@ -100,12 +103,16 @@ while run:
         if "{}, WeirdChamp".format(NICKNAME) in message:
             sendMessage(s, "@" + user + ", WeirdChamp")
             break
+
+
         if "{} moin".format(NICKNAME) in message:
             sendMessage(s, user + " moin OkayChamp")
             break
         if "@{} hi".format(NICKNAME) in message:
             sendMessage(s, user + " hi :) /")
             break
+
+        # copying emotes
         if "pokiDance" in message:
             sendMessage(s, "pokiDance")
             break
@@ -113,5 +120,10 @@ while run:
             sendMessage(s, "cindyFloss")
             break
 
+
+
+        if user == '...':
+            if not bool(re.search('^!.+$', message)):
+                sendMessage(s, message)
 
 
