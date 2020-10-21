@@ -1,12 +1,12 @@
 import socket
 import time
-import math
 
 HOST = "irc.twitch.tv"
 PORT = 6667
+
 TOKEN = "oauth:..."  # you can get your token from https://twitchapps.com/tmi/
-NICKNAME = "..."
-CHANNEL = "..."
+NICKNAME = "..."  # all lowercase :)
+CHANNEL = "..."  # all lowercase :)
 
 
 start_time = time.time()
@@ -71,15 +71,15 @@ s = openSocket()
 joinRoom(s)
 readbuffer = ""
 
-ja = 1
+run = True
 
-while ja < 2:
+while run == True:
     readbuffer = readbuffer + s.recv(2048).decode('utf-8')
     temp = readbuffer.split("\n")
     readbuffer = temp.pop()
 
     for line in temp:
-        # print(line)
+        #print(line)
         if "PING :tmi.twitch.tv" in line:
             s.send("PONG :tmi.twitch.tv\r\n".encode("utf-8"))
             print("PONG")
@@ -87,23 +87,23 @@ while ja < 2:
 
         user = getUser(line)
         message = getMessage(line)
-        # print(user + ": " + message)
-        if "@lars_99 WeirdChamp" in message:
+        print(user + ": " + message)
+        if "@{} WeirdChamp".format(NICKNAME) in message:
             sendMessage(s, "@" + user + " WeirdChamp")
             break
-        if "lars_99, WeirdChamp" in message:
+        if "{}, WeirdChamp".format(NICKNAME) in message:
             sendMessage(s, user + ", WeirdChamp")
             break
-        if "lars_99 WeirdChamp" in message:
+        if "{} WeirdChamp".format(NICKNAME) in message:
             sendMessage(s, user + " WeirdChamp")
             break
-        if "@lars_99, WeirdChamp" in message:
+        if "{}, WeirdChamp".format(NICKNAME) in message:
             sendMessage(s, "@" + user + ", WeirdChamp")
             break
-        if "lars_99 moin" in message:
+        if "{} moin".format(NICKNAME) in message:
             sendMessage(s, user + " moin OkayChamp")
             break
-        if "@lars_99 hi" in message:
+        if "@{} hi".format(NICKNAME) in message:
             sendMessage(s, user + " hi :) /")
             break
         if "pokiDance" in message:
