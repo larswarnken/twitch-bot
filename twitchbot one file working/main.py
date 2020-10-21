@@ -14,118 +14,115 @@ start_time = time.time()
 time_video = 0
 
 
-def openSocket():
-    s = socket.socket()
-    s.connect((HOST, PORT))
-    s.send(("PASS " + TOKEN + "\r\n").encode('utf-8'))
-    s.send(("NICK " + NICKNAME + "\r\n").encode('utf-8'))
-    s.send(("JOIN #" + CHANNEL + "\r\n").encode('utf-8'))
-    return s
+def open_socket():
+    socket_opened = socket.socket()
+    socket_opened.connect((HOST, PORT))
+    socket_opened.send(("PASS " + TOKEN + "\r\n").encode('utf-8'))
+    socket_opened.send(("NICK " + NICKNAME + "\r\n").encode('utf-8'))
+    socket_opened.send(("JOIN #" + CHANNEL + "\r\n").encode('utf-8'))
+    return socket_opened
 
 
-def sendMessage(s, message):
-    messageTemp = "PRIVMSG #" + CHANNEL + " :" + message
-    s.send((messageTemp + "\r\n").encode('utf-8'))
-    print("Sent: " + messageTemp)
+def send_message(socket_message, message_send):
+    message_temp = "PRIVMSG #" + CHANNEL + " :" + message_send
+    socket_message.send((message_temp + "\r\n").encode('utf-8'))
+    print("Sent: " + message_temp)
 
 
-def joinRoom(s):
-    readbuffer = ""
-    Loading = True
-    while Loading:
-        readbuffer = readbuffer + s.recv(2048).decode('utf-8')
-        temp = readbuffer.split('\n')
-        readbuffer = temp.pop()
-        for line in temp:
+def join_room(socket_to):
+    read_buffering = ""
+    loading = True
+    while loading:
+        read_buffering = read_buffering + socket_to.recv(2048).decode('utf-8')
+        temp_message = read_buffering.split('\n')
+        read_buffering = temp_message.pop()
+        for chat_line in temp_message:
             # print(line)
-            Loading = loadingComplete(line)
+            loading = loading_complete(chat_line)
     print("Successful connect")
-    # sendMessage(s, "bot activated FeelsDankMan ")
+    # send_message(s, "bot activated FeelsDankMan ")
 
 
-
-def loadingComplete(line):
-    if ("End of /NAMES list" in line):
+def loading_complete(line_load):
+    if "End of /NAMES list" in line_load:
         return False
     else:
         return True
 
 
-def getUser(line):
-    separate = line.split(":", 2)
-    user = separate[1].split("!", 1)[0]
-    return user
+def get_user(line_user):
+    separate = line_user.split(":", 2)
+    line_user = separate[1].split("!", 1)[0]
+    return line_user
 
 
-def getMessage(line):
-    separate = line.split(":", 2)
+def get_message(line_message):
+    separate = line_message.split(":", 2)
     try:
-        message = separate[2]
-    except:
-        message = "error"
-    return message
+        message_split = separate[2]
+    except Exception:
+        message_split = "error"
+    return message_split
 
 
-
-
-s = openSocket()
-joinRoom(s)
-readbuffer = ""
+s = open_socket()
+join_room(s)
+read_buffer = ""
 
 run = True
 
 while run:
-    readbuffer = readbuffer + s.recv(2048).decode('utf-8')
-    temp = readbuffer.split("\n")
-    readbuffer = temp.pop()
+    read_buffer = read_buffer + s.recv(2048).decode('utf-8')
+    temp = read_buffer.split("\n")
+    read_buffer = temp.pop()
 
     for line in temp:
-        #print(line)
+        # print(line)
         if "PING :tmi.twitch.tv" in line:
             s.send("PONG :tmi.twitch.tv\r\n".encode("utf-8"))
             print("PONG")
             break
 
-        user = getUser(line)
-        message = getMessage(line)
+        user = get_user(line)
+        message = get_message(line)
         print(user + ": " + message)
 
         # weirdchamp
         if "@{} WeirdChamp".format(NICKNAME) in message:
-            sendMessage(s, "@" + user + " WeirdChamp")
+            send_message(s, "@" + user + " WeirdChamp")
             break
         if "{}, WeirdChamp".format(NICKNAME) in message:
-            sendMessage(s, user + ", WeirdChamp")
+            send_message(s, user + ", WeirdChamp")
             break
         if "{} WeirdChamp".format(NICKNAME) in message:
-            sendMessage(s, user + " WeirdChamp")
+            send_message(s, user + " WeirdChamp")
             break
         if "{}, WeirdChamp".format(NICKNAME) in message:
-            sendMessage(s, "@" + user + ", WeirdChamp")
+            send_message(s, "@" + user + ", WeirdChamp")
             break
 
-
+        # greeting back
         if "{} moin".format(NICKNAME) in message:
-            sendMessage(s, user + " moin OkayChamp")
+            send_message(s, user + " moin OkayChamp")
             break
         if "@{} hi".format(NICKNAME) in message:
-            sendMessage(s, user + " hi :) /")
+            send_message(s, user + " hi :) /")
             break
 
         # copying emotes
         if "pokiDance" in message:
-            sendMessage(s, "pokiDance")
+            send_message(s, "pokiDance")
             break
         if "cindyFloss" in message:
-            sendMessage(s, "cindyFloss")
+            send_message(s, "cindyFloss")
             break
 
-
-
-        if user == '...':
-            if bool(re.search('^!.+$', message)) or bool(re.search('(?i)^kek.+$', message)) or 'monteOpa' in message or 'ich ' in message:
-                sendMessage(s, '{} nice try :)'.format(user))
+        # copying user
+        if user == 'yessayes':
+            if bool(re.search('^!.+$', message))\
+                    or bool(re.search('(?i)^kek.+$', message))\
+                    or 'monteOpa' in message \
+                    or 'ich ' in message:
+                send_message(s, '{} nice try :)'.format(user))
             else:
-                sendMessage(s, message)
-
-
+                send_message(s, message)
