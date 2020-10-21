@@ -73,7 +73,7 @@ readbuffer = ""
 
 run = True
 
-while run == True:
+while run:
     readbuffer = readbuffer + s.recv(2048).decode('utf-8')
     temp = readbuffer.split("\n")
     readbuffer = temp.pop()
