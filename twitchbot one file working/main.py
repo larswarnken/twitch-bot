@@ -123,7 +123,9 @@ while run:
 
 
         if user == '...':
-            if not bool(re.search('^!.+$', message)):
+            if bool(re.search('^!.+$', message)) or bool(re.search('(?i)^kek.+$', message)) or 'monteOpa' in message or 'ich ' in message:
+                sendMessage(s, '{} nice try :)'.format(user))
+            else:
                 sendMessage(s, message)
 
 
