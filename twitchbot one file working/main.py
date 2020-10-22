@@ -10,10 +10,6 @@ NICKNAME = "..."  # all lowercase :)
 CHANNEL = "..."  # all lowercase :)
 
 
-start_time = time.time()
-time_video = 0
-
-
 def open_socket():
     socket_opened = socket.socket()
     socket_opened.connect((HOST, PORT))
@@ -127,18 +123,5 @@ while run:
             else:
                 send_message(s, message)
 
-
-
-        if 'forsen1 forsen2' in message:
-            send_message(s, user + ' nice try :)')
-            break
-
-        if 'pepege1P1 pepege1P2' in message:
-            send_message(s, user + ' nice try :)')
-            break
-
-        if 'dnyG1 dnyG2' in message:
-            send_message(s, user + ' nice try :)')
-            break
 
 
