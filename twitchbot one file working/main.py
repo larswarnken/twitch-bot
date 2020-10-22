@@ -118,7 +118,7 @@ while run:
             break
 
         # copying user
-        if user == 'yessayes':
+        if user == '...':
             if bool(re.search('^!.+$', message))\
                     or bool(re.search('(?i)^kek.+$', message))\
                     or 'monteOpa' in message \
@@ -126,3 +126,19 @@ while run:
                 send_message(s, '{} nice try :)'.format(user))
             else:
                 send_message(s, message)
+
+
+
+        if 'forsen1 forsen2' in message:
+            send_message(s, user + ' nice try :)')
+            break
+
+        if 'pepege1P1 pepege1P2' in message:
+            send_message(s, user + ' nice try :)')
+            break
+
+        if 'dnyG1 dnyG2' in message:
+            send_message(s, user + ' nice try :)')
+            break
+
+
