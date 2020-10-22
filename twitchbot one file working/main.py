@@ -1,13 +1,12 @@
 import socket
-import time
 import re
 
 HOST = "irc.twitch.tv"
 PORT = 6667
 
 TOKEN = "oauth:..."  # you can get your token from https://twitchapps.com/tmi/
-NICKNAME = "..."  #.lower()
-CHANNEL = "..."  #.lower()
+NICKNAME = "...".lower()
+CHANNEL = "...".lower()
 
 
 def open_socket():
