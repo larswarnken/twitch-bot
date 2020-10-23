@@ -123,6 +123,6 @@ while run:
                 send_message(s, message)
 
         # disturbing 1234 emotes
-        if bool(re.search(r'^[^kiando]\w+1\s+\w+2', message)):
+        if bool(re.search(r'^[^kiando]\w+1\s+\w+2.*', message)):
             send_message(s, user + ' nice try :)')
             break
