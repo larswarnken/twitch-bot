@@ -80,6 +80,7 @@ while run:
 
         user = get_user(line)
         message = get_message(line)
+        message = message[:-1]
         print(user + ": " + message)
 
         # weirdchamp
